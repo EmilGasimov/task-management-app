@@ -1,0 +1,21 @@
+{
+  "name": "task-management-app-backend",
+  "version": "1.0.0",
+  "description": "Backend for the Task Management Application",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "body-parser": "^1.19.0",
+    "mysql2": "^2.2.5", // Use "pg" for PostgreSQL
+    "sequelize": "^6.6.5" // Optional: if using Sequelize ORM
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "author": "Your Name",
+  "license": "ISC"
+}
