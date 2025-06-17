@@ -1,16 +1,13 @@
 const express = require('express');
 const TaskController = require('../controllers/taskController');
+const Task = require('../models/taskModel'); // Make sure you have this
 
 const router = express.Router();
-const taskController = new TaskController();
+const taskController = new TaskController(Task);
 
-const setRoutes = (app) => {
-    router.post('/tasks', taskController.createTask);
-    router.get('/tasks', taskController.getTasks);
-    router.put('/tasks/:id', taskController.updateTask);
-    router.delete('/tasks/:id', taskController.deleteTask);
+router.post('/', taskController.createTask.bind(taskController));
+router.get('/', taskController.getTasks.bind(taskController));
+router.put('/:id', taskController.updateTask.bind(taskController));
+router.delete('/:id', taskController.deleteTask.bind(taskController));
 
-    app.use('/api', router);
-};
-
-module.exports = setRoutes;
+module.exports = router;

@@ -6,7 +6,7 @@ class TaskController {
     async createTask(req, res) {
         try {
             const taskData = req.body;
-            const newTask = await this.taskModel.save(taskData);
+            const newTask = await this.taskModel.create(taskData); // <-- use create
             res.status(201).json(newTask);
         } catch (error) {
             res.status(500).json({ message: 'Error creating task', error });
@@ -25,9 +25,9 @@ class TaskController {
     async updateTask(req, res) {
         try {
             const { id } = req.params;
-            const taskData = req.body;
-            const updatedTask = await this.taskModel.update(id, taskData);
-            if (updatedTask) {
+            const [updated] = await this.taskModel.update(req.body, { where: { id } });
+            if (updated) {
+                const updatedTask = await this.taskModel.findByPk(id);
                 res.status(200).json(updatedTask);
             } else {
                 res.status(404).json({ message: 'Task not found' });
@@ -40,7 +40,7 @@ class TaskController {
     async deleteTask(req, res) {
         try {
             const { id } = req.params;
-            const deleted = await this.taskModel.delete(id);
+            const deleted = await this.taskModel.destroy({ where: { id } });
             if (deleted) {
                 res.status(204).send();
             } else {
@@ -52,4 +52,4 @@ class TaskController {
     }
 }
 
-export default TaskController;
+module.exports = TaskController;
