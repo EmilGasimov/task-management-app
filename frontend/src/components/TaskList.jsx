@@ -54,7 +54,7 @@ const TaskList = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Tasks</h2>
       <form onSubmit={handleCreateTask}>
         <input
